@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -24,8 +24,7 @@
     "better-sqlite3": "^11.9.1",
     "drizzle-orm": "^0.44.2",
     "fastify": "^5.3.3",
-    "pino": "^9.6.0",
-    "zod": "^3.25.28"
+    "pino": "^9.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",

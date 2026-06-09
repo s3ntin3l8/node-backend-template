@@ -1,18 +1,34 @@
 import fp from "fastify-plugin";
 import env from "@fastify/env";
-import { z } from "zod";
 
-const schema = z.object({
-  NODE_ENV: z
-    .enum(["development", "production", "test"])
-    .default("development"),
-  PORT: z.coerce.number().default(3000),
-  LOG_LEVEL: z
-    .enum(["fatal", "error", "warn", "info", "debug", "trace"])
-    .default("info"),
-  DATABASE_URL: z.string().default("file:./data/app.db"),
-  DB_ENCRYPTION_KEY: z.string().default(""),
-});
+const schema = {
+  type: "object",
+  required: [],
+  properties: {
+    NODE_ENV: {
+      type: "string",
+      default: "development",
+      enum: ["development", "production", "test"],
+    },
+    PORT: {
+      type: "number",
+      default: 3000,
+    },
+    LOG_LEVEL: {
+      type: "string",
+      default: "info",
+      enum: ["fatal", "error", "warn", "info", "debug", "trace"],
+    },
+    DATABASE_URL: {
+      type: "string",
+      default: "file:./data/app.db",
+    },
+    DB_ENCRYPTION_KEY: {
+      type: "string",
+      default: "",
+    },
+  },
+};
 
 export const envPlugin = fp(async (app) => {
   await app.register(env, {
