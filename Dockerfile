@@ -1,5 +1,5 @@
 # --- Full dependencies (incl. dev) for building ---
-FROM node:22-slim AS deps
+FROM node:26-slim AS deps
 WORKDIR /app
 # Tolerate transient registry hiccups (e.g. ECONNRESET) during install.
 ENV NPM_CONFIG_FETCH_RETRIES=5 \
@@ -9,14 +9,14 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # --- Compile TypeScript to dist/ ---
-FROM node:22-slim AS build
+FROM node:26-slim AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
 # --- Production-only dependencies ---
-FROM node:22-slim AS prod-deps
+FROM node:26-slim AS prod-deps
 WORKDIR /app
 ENV NPM_CONFIG_FETCH_RETRIES=5 \
     NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
@@ -25,7 +25,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 # --- Minimal runtime image ---
-FROM node:22-slim AS production
+FROM node:26-slim AS production
 WORKDIR /app
 ENV NODE_ENV=production
 
