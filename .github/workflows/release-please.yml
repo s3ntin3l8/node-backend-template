@@ -7,6 +7,9 @@ on:
 
 jobs:
   release-please:
+    permissions:
+      contents: write
+      pull-requests: write
     uses: s3ntin3l8/.github/.github/workflows/release-please.yml@main
 
   build-docker:
@@ -18,7 +21,7 @@ jobs:
       id-token: write
     uses: s3ntin3l8/.github/.github/workflows/docker-publish.yml@main
     with:
-      image-name: "s3ntin3l8/node-backend-template"
+      image-name: "s3ntin3l8/${{ github.event.repository.name }}"
       push-release: true
       release-tag: ${{ needs.release-please.outputs.tag_name }}
     secrets: inherit

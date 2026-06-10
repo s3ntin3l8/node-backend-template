@@ -8,6 +8,8 @@ on:
 
 jobs:
   test-node:
+    permissions:
+      contents: read
     uses: s3ntin3l8/.github/.github/workflows/ci-node.yml@main
     with:
       node-version: "22"
@@ -22,6 +24,6 @@ jobs:
       id-token: write
     uses: s3ntin3l8/.github/.github/workflows/docker-publish.yml@main
     with:
-      image-name: "s3ntin3l8/node-backend-template"
+      image-name: "s3ntin3l8/${{ github.event.repository.name }}"
       push-edge: ${{ github.event_name == 'push' }}
     secrets: inherit
