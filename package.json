@@ -1,6 +1,6 @@
 {
   "name": "node-backend-template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Standard Fastify backend template with full CI/CD and security",
   "main": "dist/server.js",
