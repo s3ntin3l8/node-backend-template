@@ -27,6 +27,18 @@ const schema = {
       type: "string",
       default: "",
     },
+    CORS_ORIGIN: {
+      type: "string",
+      default: "",
+    },
+    RATE_LIMIT_MAX: {
+      type: "number",
+      default: 100,
+    },
+    RATE_LIMIT_WINDOW: {
+      type: "string",
+      default: "1 minute",
+    },
   },
 };
 
@@ -45,6 +57,9 @@ declare module "fastify" {
       LOG_LEVEL: "fatal" | "error" | "warn" | "info" | "debug" | "trace";
       DATABASE_URL: string;
       DB_ENCRYPTION_KEY: string;
+      CORS_ORIGIN: string;
+      RATE_LIMIT_MAX: number;
+      RATE_LIMIT_WINDOW: string;
     };
   }
 }
