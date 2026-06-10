@@ -1,6 +1,10 @@
 # --- Full dependencies (incl. dev) for building ---
 FROM node:22-slim AS deps
 WORKDIR /app
+# Tolerate transient registry hiccups (e.g. ECONNRESET) during install.
+ENV NPM_CONFIG_FETCH_RETRIES=5 \
+    NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
+    NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -14,6 +18,9 @@ RUN npm run build
 # --- Production-only dependencies ---
 FROM node:22-slim AS prod-deps
 WORKDIR /app
+ENV NPM_CONFIG_FETCH_RETRIES=5 \
+    NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
+    NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
