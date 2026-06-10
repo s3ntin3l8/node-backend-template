@@ -10,7 +10,9 @@ export async function seed() {
     return;
   }
 
-  db.insert(users).values([{ name: "Admin User", email: "admin@example.com" }]);
+  db.insert(users)
+    .values([{ name: "Admin User", email: "admin@example.com" }])
+    .run();
 
   console.log("Database seeded with initial data.");
 }

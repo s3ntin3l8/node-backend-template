@@ -6,6 +6,7 @@ import path from "node:path";
 import fs from "node:fs";
 
 let dbInstance: ReturnType<typeof drizzle> | null = null;
+let sqliteInstance: Database.Database | null = null;
 
 export function getDb(databaseUrl?: string) {
   if (dbInstance) return dbInstance;
@@ -18,10 +19,18 @@ export function getDb(databaseUrl?: string) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  const sqlite = new Database(dbPath);
-  dbInstance = drizzle(sqlite, { schema });
+  sqliteInstance = new Database(dbPath);
+  dbInstance = drizzle(sqliteInstance, { schema });
 
   return dbInstance;
+}
+
+export function closeDb() {
+  if (sqliteInstance) {
+    sqliteInstance.close();
+  }
+  sqliteInstance = null;
+  dbInstance = null;
 }
 
 export function ensureDb(databaseUrl?: string) {
