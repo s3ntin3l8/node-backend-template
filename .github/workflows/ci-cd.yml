@@ -14,7 +14,8 @@ jobs:
     with:
       node-version: "26"
       test-script: "test:coverage"
-    secrets: inherit
+      strict-checks: true
+    secrets: inherit # pragma: allowlist secret
 
   build-docker:
     needs: [test-node]
@@ -26,4 +27,4 @@ jobs:
     with:
       image-name: "s3ntin3l8/${{ github.event.repository.name }}"
       push-edge: ${{ github.event_name == 'push' }}
-    secrets: inherit
+    secrets: inherit # pragma: allowlist secret
