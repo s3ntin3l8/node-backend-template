@@ -54,6 +54,11 @@ edits) and `npm run db:seed`.
   [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web)
   sessions can build, test, and lint. Runs only in the remote env.
 
+## Key invariants
+
+Rules a change to this repo should not silently break, with the reasoning behind each — add to
+this list as the codebase grows past "starter template." It's intentionally short today.
+
 ## CI/CD — uses centralized reusable workflows
 
 Workflows here are **callers** of `s3ntin3l8/.github/.github/workflows/*.yml@main`:
@@ -93,3 +98,13 @@ Codecov.
   `detect-secrets scan > .secrets.baseline` after vetting new detections).
 - **Before committing:** run `make lint && make typecheck && make test` (the pre-push
   hook enforces this).
+
+## Documentation map
+
+- `README.md` — setup and usage instructions for whatever you build from this template.
+- `CLAUDE.md` (this file) — the live contract for how the repo is wired: layout, invariants,
+  CI/CD conventions. Keep it in sync with the code, not with what the code used to do.
+
+Add real docs here as the project grows past what these two files can hold on their own (e.g. an
+API contract, an architecture decision log, an operational runbook) — this section exists so
+that pattern has an obvious place to start rather than being invented under time pressure later.
