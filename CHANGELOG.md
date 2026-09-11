@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.3](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.2...v0.1.3) (2026-09-11)
+
+
+### Bug Fixes
+
+* correct invalid identify tags in .pre-commit-config.yaml ([#15](https://github.com/s3ntin3l8/node-backend-template/issues/15)) ([bf065a5](https://github.com/s3ntin3l8/node-backend-template/commit/bf065a58d8ac565d562e266248cc1ae8117fd502))
+* **deps:** resolve 5 high-severity transitive npm audit findings ([#32](https://github.com/s3ntin3l8/node-backend-template/issues/32)) ([262c64b](https://github.com/s3ntin3l8/node-backend-template/commit/262c64b82dd8dba792e10e442712c8f8395366d0))
+* pin typescript to ~6.0.3 -- fixes main's broken CI/CD since PR [#17](https://github.com/s3ntin3l8/node-backend-template/issues/17) ([#29](https://github.com/s3ntin3l8/node-backend-template/issues/29)) ([e18e606](https://github.com/s3ntin3l8/node-backend-template/commit/e18e6060e5c554517732476e64df97470ff75757))
+
 ## [0.1.2](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.1...v0.1.2) (2026-07-12)
 
 
