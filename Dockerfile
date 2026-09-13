@@ -6,7 +6,11 @@ ENV NPM_CONFIG_FETCH_RETRIES=5 \
     NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
     NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000
 COPY package.json package-lock.json ./
-RUN npm ci
+# Skip install lifecycle (e.g. node-gyp rebuild for native modules). The
+# only native dependency here is better-sqlite3, which ships prebuilds
+# inside its npm tarball (prebuilds/<platform>-<arch>.node) and is loaded
+# directly via require(). node:26-slim has no Python, so node-gyp fails.
+RUN npm ci --ignore-scripts
 
 # --- Compile TypeScript to dist/ ---
 FROM node:26-slim AS build
@@ -22,7 +26,8 @@ ENV NPM_CONFIG_FETCH_RETRIES=5 \
     NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000 \
     NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+# Skip install lifecycle (see note in the deps stage above).
+RUN npm ci --omit=dev --ignore-scripts
 
 # --- Minimal runtime image ---
 FROM node:26-slim AS production
