@@ -18,6 +18,10 @@ jobs:
       node-version: "26"
       test-script: "test:coverage"
       strict-checks: true
+      # Only the files this push touched can have introduced a secret. The
+      # baseline is keyed by filename and line number, so an unchanged file
+      # keeps its entry and the scan stays consistent.
+      detect-secrets-scope: "changed"
     secrets: inherit # pragma: allowlist secret
 
   build-docker:
