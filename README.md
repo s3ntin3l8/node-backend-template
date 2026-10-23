@@ -98,3 +98,7 @@ version bumps.
 3. Replace `release-please-config.json` / manifest package name if needed.
 4. Generate and set a real `DB_ENCRYPTION_KEY` for any non-local environment.
 5. Replace the example `users` schema/route with your domain model.
+
+## License
+
+Copyright (C) 2026 Björn Hansen — licensed under [AGPL-3.0-or-later](LICENSE).
