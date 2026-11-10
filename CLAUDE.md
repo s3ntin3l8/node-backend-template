@@ -14,7 +14,14 @@ or developer working in a repo created from this template, read this first.
 4. `make build` — verify everything compiles.
 5. Decide your CI coverage floor: `ci-cd.yml` ships `test-script: "test:coverage"`;
    the reusable `ci-node` defaults `coverage-fail-under: '0'` (a starter floor) —
-   **ratchet it up** as you add real code.
+   **ratchet it up** as you add real code. Test sharding is shipped off; enable it
+   via the commented `test-shards` lines in `ci-cd.yml` (the `json` coverage reporter
+   that shard merging needs is already set in `vitest.config.ts`).
+6. Set the Hermes review secrets `HERMES_APP_ID`, `HERMES_APP_PRIVATE_KEY` and
+   `HERMES_API_KEY` — as repo secrets **and** under Settings → Secrets → Dependabot
+   (a Dependabot-authored run sees only the latter). Without them `hermes.yml` skips
+   with a notice. Keep Settings → Actions → General → "Require approval for all outside
+   collaborators" on: the reviewer runs on a self-hosted runner.
 
 ## Commands (Makefile)
 
@@ -63,7 +70,7 @@ this list as the codebase grows past "starter template." It's intentionally shor
 
 Workflows here are **callers** of `s3ntin3l8/.github/.github/workflows/*.yml@main`:
 `ci-cd.yml` (ci-node + docker-publish), `codeql.yml`, `dependency-review.yml`,
-`release-please.yml`, `cleanup-ghcr.yml`.
+`release-please.yml`, `ghcr-cleanup.yml`, `hermes.yml` (AI PR review).
 
 **The #1 thing to get right:** a caller job that invokes a reusable workflow needing
 write scopes **must declare a `permissions:` block** — the default `GITHUB_TOKEN` is
@@ -72,7 +79,7 @@ must cover **every** scope the reusable workflow's jobs declare, or the run fail
 startup. `build-docker` needs `contents: read` + `packages: write` +
 `id-token: write` (the last for keyless image signing); `codeql` needs
 `security-events: write`; `release-please` needs `contents: write` +
-`pull-requests: write`. See the `s3ntin3l8/.github` README for the full table.
+`pull-requests: write`; `hermes.yml` needs only `contents: read`. See the `s3ntin3l8/.github` README for the full table.
 
 `ci-node` installs via `npm ci`, runs lint + `test:coverage`, and uploads coverage to
 Codecov.
