@@ -68,7 +68,11 @@ jobs:
     # enforced centrally inside the reusable workflow itself -- this copy is
     # defense-in-depth, same as the fork guard, and must not be stricter
     # than the central list.
+    # Skipped in the template repo itself: it has no self-hosted runner, so the
+    # job would sit queued forever on every PR. Repos created from the template
+    # have a different name and run it normally.
     if: >-
+      github.repository != 's3ntin3l8/node-backend-template' &&
       github.event_name == 'pull_request' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
       github.event.pull_request.user.login != 's3ntin3l8-hermes[bot]' &&
@@ -95,7 +99,11 @@ jobs:
     # Restrict to trusted commenters -- otherwise any user on a public repo could
     # post "@s3ntin3l8-hermes Review" and trigger a run that inherits HERMES_*
     # secrets and executes on the self-hosted runner. Mirrors claude-code.yml's guard.
+    # Skipped in the template repo itself: it has no self-hosted runner, so the
+    # job would sit queued forever on every PR. Repos created from the template
+    # have a different name and run it normally.
     if: >-
+      github.repository != 's3ntin3l8/node-backend-template' &&
       github.event_name == 'issue_comment' &&
       github.actor != 's3ntin3l8-hermes[bot]' &&
       contains(fromJSON('["MEMBER", "OWNER", "COLLABORATOR"]'), github.event.comment.author_association)
