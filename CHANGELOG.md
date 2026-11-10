@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.3...v0.1.4) (2026-11-10)
+
+
+### Bug Fixes
+
+* **deps:** override minimatch to ^11.0.1 for the globparts DoS advisory ([#63](https://github.com/s3ntin3l8/node-backend-template/issues/63)) ([60549c8](https://github.com/s3ntin3l8/node-backend-template/commit/60549c86ccde150159ca331ff4c3945e9ca4b761))
+
 ## [0.1.3](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.2...v0.1.3) (2026-09-13)
 
 
