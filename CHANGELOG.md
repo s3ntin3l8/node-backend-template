@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.4...v0.1.5) (2026-11-11)
+
+
+### Bug Fixes
+
+* install with npm ci in the session-start hook ([#65](https://github.com/s3ntin3l8/node-backend-template/issues/65)) ([697f3df](https://github.com/s3ntin3l8/node-backend-template/commit/697f3dfe58443ce0ebb05bdf9c3d703c8614802f))
+
 ## [0.1.4](https://github.com/s3ntin3l8/node-backend-template/compare/v0.1.3...v0.1.4) (2026-11-10)
 
 
